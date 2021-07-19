@@ -2,45 +2,43 @@ import requests
 from bs4 import BeautifulSoup
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
-import time
 
 
 def scrape_tutorial():
     BASE_URL = "https://forums.t-nation.com/"
 
     """ With BeautifulSoup """
-    # page = requests.get(BASE_URL)
-    # soup = BeautifulSoup(page.content, "html.parser")
-    #
-    # # print(soup.prettify())
-    #
-    # #print(soup.find_all("span"))
-    #
-    # titles = [title.text for title in soup.find_all("span") if "\n" not in
-    #           title.text]
-    #
-    # titles = []
-    # for title in soup.find_all("span"):
-    #     if "\n" not in title.text:
-    #         titles.append(title.text)
-    #
-    # print(titles)
-    #
-    # #print(soup.find_all("a"))
-    # urls = [url["href"] for url in soup.find_all("a") if "/c/" in url["href"]]
-    # print(urls)
-    #
-    # """ Check if same amount of titles and urls """
-    # assert len(urls) == len(titles)
-    #
-    # first_topic_titles = []
-    # for url in urls:
-    #     page = requests.get(BASE_URL + url)
-    #     soup = BeautifulSoup(page.content, "html.parser")
-    #     cls = "title raw-link raw-topic-link"
-    #     first_topic_titles.append(soup.find("a", class_=cls).text)
-    #
-    # print(first_topic_titles)
+    page = requests.get(BASE_URL)
+    soup = BeautifulSoup(page.content, "html.parser")
+
+    # print(soup.prettify())
+
+    # print(soup.find_all("span"))
+    titles = [title.text for title in soup.find_all("span") if "\n" not in
+              title.text]
+
+    titles = []
+    for title in soup.find_all("span"):
+        if "\n" not in title.text:
+            titles.append(title.text)
+
+    print(titles)
+
+    #print(soup.find_all("a"))
+    urls = [url["href"] for url in soup.find_all("a") if "/c/" in url["href"]]
+    print(urls)
+
+    """ Check if same amount of titles and urls """
+    assert len(urls) == len(titles)
+
+    first_topic_titles = []
+    for url in urls:
+        page = requests.get(BASE_URL + url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        cls = "title raw-link raw-topic-link"
+        first_topic_titles.append(soup.find("a", class_=cls).text)
+
+    print(first_topic_titles)
 
     """ With Selenium """
     PATH = 'C:\\Users\\besar\\Documents\\gecko' \
